@@ -10,7 +10,6 @@ public class Product {
         this.name = name;
         this.price = price;
     }
-
     public int getId() {
         return id;
     }
@@ -34,5 +33,4 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
-
 }

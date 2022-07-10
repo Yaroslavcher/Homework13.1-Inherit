@@ -1,6 +1,7 @@
 package ru.netology.manager;
 
 import ru.netology.parentclass.Product;
+import ru.netology.childclass.Book;
 import ru.netology.repo.Repository;
 
 public class Manager {
@@ -14,7 +15,7 @@ public class Manager {
     }
     public Product[] searchBy(String text) {    //метод поиска по товарам в репозитории
         Product[] result = new Product[0];      //в result хранится соответствующие поиску товары
-        for (Product item: repo.findAll()) {
+        for (Product item: repo.getItems()) {
             if (matches(item, text)) {
                 Product[] tmp = new Product[result.length + 1];
                 for (int i = 0; i < result.length; i++) {
@@ -28,6 +29,13 @@ public class Manager {
     }
     public boolean matches(Product item, String search){
         if (item.getName().contains(search)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean matches(Book author, String search){
+        if (author.getAuthor().contains(search)){
             return true;
         } else {
             return false;
