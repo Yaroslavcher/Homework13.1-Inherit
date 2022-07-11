@@ -6,6 +6,7 @@ import ru.netology.childclass.Book;
 import ru.netology.childclass.Smartphohe;
 import ru.netology.parentclass.Product;
 import ru.netology.repo.Repository;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 
@@ -18,6 +19,7 @@ public class RepositoryTest {
 
     Product[] items = {item1, item2, item3, item4};
     Repository repo = new Repository();
+
     @Test
     public void shouldSave() {
         repo.save(item1);
@@ -25,9 +27,8 @@ public class RepositoryTest {
         repo.save(item3);
         repo.save(item4);
         repo.save(item5);
- /*       doReturn(items).when(repo).getItems();*/
         Product[] expected = {item1, item2, item3, item4, item5};
-        assertArrayEquals (expected, repo.findAll());
+        assertArrayEquals(expected, repo.findAll());
 
     }
 
@@ -39,7 +40,6 @@ public class RepositoryTest {
         repo.save(item4);
         repo.save(item5);
         repo.removeById(item3.getId());
- /*       doReturn(items).when(repo).getItems();*/
         Product[] expected = {item1, item2, item4, item5};
         assertArrayEquals(expected, repo.getItems());
     }
