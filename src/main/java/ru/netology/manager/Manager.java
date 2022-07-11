@@ -34,11 +34,4 @@ public class Manager {
             return false;
         }
     }
-    public boolean matches(Book author, String search){
-        if (author.getAuthor().contains(search)){
-            return true;
-        } else {
-            return false;
-        }
     }
-}

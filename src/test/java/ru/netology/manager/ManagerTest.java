@@ -1,10 +1,6 @@
 package ru.netology.manager;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import ru.netology.childclass.Book;
 import ru.netology.childclass.Smartphohe;
 import ru.netology.parentclass.Product;
@@ -16,53 +12,40 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ManagerTest {
     Repository repo = Mockito.mock(Repository.class);
     Manager manager = new Manager(repo);
-    @Test
-    public void shouldAddItems() {
-        Product[] items = {item1, item2, item3, item4, item5};
-        doReturn(items).when(repo).getItems();
-        Product[] expected = {item1, item2, item3, item4, item5};
-        Product[] actual = repo.getItems();
-        assertArrayEquals (expected, actual);
-    }
-    @Test
-    public void shouldAddOneItem() {
-        Product[] items = {item1};
-        doReturn(items).when(repo).getItems();
-        Product[] expected = {item1};
-        Product[] actual = repo.getItems();
-        assertArrayEquals (expected, actual);
-    }
     Product item1 = new Book(1, "BookName1", 100, "Author1");
     Product item2 = new Book(2, "BookName2", 200, "Author2");
     Product item3 = new Smartphohe(3, "SmartphoneName1", 10_000, "Maker1");
     Product item4 = new Smartphohe(4, "SmartphoneName2", 20_000, "Maker2");
     Product item5 = new Smartphohe(5, "SmartphoneName3", 30_000, "Maker3");
+
+    Product[] items = {item1, item2, item3, item4, item5};
+
+    @Test
+    public void shouldAddItems() {
+        doReturn(items).when(repo).getItems();
+        Product[] expected = {item1, item2, item3, item4, item5};
+        assertArrayEquals (expected, repo.getItems());
+    }
     @Test
     public void shouldFindSeveralItems() {
         String text = "Name2";
-        Product[] items = {item1, item2, item3, item4, item5};
         doReturn(items).when(repo).getItems();
         Product[] expected = {item2, item4};
-        Product[] actual = manager.searchBy(text);
-        assertArrayEquals(expected, actual);
+        assertArrayEquals(expected, manager.searchBy(text));
     }
     @Test
     public void shouldFindNone() {
-        String text = "Maker11";
-        Product[] items = {item1, item2, item3, item4, item5};
+        String text = "Name11";
         doReturn(items).when(repo).getItems();
         Product[] expected = {};
-        Product[] actual = manager.searchBy(text);
-        assertArrayEquals(expected, actual);
+        assertArrayEquals(expected, manager.searchBy(text));
     }
     @Test
     public void shouldFindOneItem() {
-        String text = "Author2";
-        Product[] items = {item1, item2, item3, item4, item5};
+        String text = "SmartphoneName3";
         doReturn(items).when(repo).getItems();
-        Product[] expected = {item2};
-        Product[] actual = manager.searchBy(text);
-        assertArrayEquals(expected, actual);
+        Product[] expected = {item5};
+        assertArrayEquals(expected, manager.searchBy(text));
     }
 }
 
